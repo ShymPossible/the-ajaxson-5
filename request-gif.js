@@ -2,9 +2,8 @@
 
 $(document).ready(function() {
     // register our function as the "callback" to be triggered by the form's submission event
-    $("#form-gif-request").submit(fetchAndDisplayGif); // in other words, when the form is submitted, fetchAndDisplayGif() will be executed
+    $("#form-gif-request").submit(fetchAndDisplayGif);
 });
-
 
 /**
  * sends an asynchronous request to Giphy.com aksing for a random GIF using the 
@@ -12,8 +11,10 @@ $(document).ready(function() {
  * 
  * upon receiving a response from Giphy, updates the DOM to display the new GIF
  */
+
 function fetchAndDisplayGif(event) {
     
+    let riddle_check = false;
     // This prevents the form submission from doing what it normally does: send a request (which would cause our page to refresh).
     // Because we will be making our own AJAX request, we dont need to send a normal request and we definitely don't want the page to refresh.
     event.preventDefault();
@@ -24,10 +25,17 @@ function fetchAndDisplayGif(event) {
     // configure a few parameters to attach to our request
     var params = { 
         api_key: "I7wKAZ1A0c7irVN1F7ebRNaxL1IxLrs7", 
-        tag : "jackson 5", // TODO should be e.g. "jackson 5 dance"
+        tag : "Jackson 5" + searchQuery, // TODO should be e.g. "jackson 5 dance"
     };
-    
-    // make an ajax request for a random GIF
+
+    //I created this function for the validation check...
+    if ($("#riddle-answer").val() !== "5" && $("#error-form").attr("value")== ""){
+        $("#riddle-error").text("No...just no.");
+    } else { 
+    $("#error-form").attr("value","hi");
+    $("#error-form").hide();
+
+// make an ajax request for a random GIF
     $.ajax({
         url: "https://api.giphy.com/v1/gifs/random", // TODO where should this request be sent?
         data: {
@@ -41,7 +49,7 @@ function fetchAndDisplayGif(event) {
             console.log("we received a response!");
             console.log(response);
             
-           
+        
             $("#gif").attr("src",response.data.image_url);
             setGifLoadedStatus(true);
         
@@ -56,8 +64,10 @@ function fetchAndDisplayGif(event) {
     });
     $("#feedback").attr("hidden",false);
     $("#feedback").text("Loading...");
-    
+
+    }
 }
+
 
 
 /**

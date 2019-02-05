@@ -5,12 +5,22 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="request-gif.js"></script>
 </head>
+
 <body>
     <h1>The AJAXson 5</h1>
 
     <form id="form-gif-request" />
         <label>What kind of Jackson 5 related gif do you want?</label>
         <input id="tag" name="tag" type="text"/>
+        <br>
+        <br>
+        <div id=error-form value="">
+        <label>Prove you are not a robot by answering the following riddle:</label>
+        <br>
+        <input id="riddle-answer" type="text"/>
+        <label><b>Jacksons are better than 1.</b></label>
+        <p id="riddle-error"></p>
+        </div>
         <input type="submit" value="Get my Gif!" />
     </form>
 
